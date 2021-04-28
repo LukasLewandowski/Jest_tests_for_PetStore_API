@@ -31,7 +31,7 @@ defineFeature(feature, (test) => {
         status: 'available',
     };
 
-    test('Add a new pet to the store', ({ given, when, then }) => {
+    test('Add a new pet to the store', ({ when, then }) => {
         const petId = Date.now();
 
         const payload = {
@@ -59,7 +59,7 @@ defineFeature(feature, (test) => {
         });
     });
 
-    async function findPetById() {
+    async function findPetById(petId) {
         const response = await request
             .get(`${petStoreEndpoint}/${petId}`)
             .set(headers);
@@ -68,11 +68,7 @@ defineFeature(feature, (test) => {
         expect(response.body.message).toContain('Pet not found');
     }
 
-    test('Adding a new pet without name should fail', ({
-        given,
-        when,
-        then,
-    }) => {
+    test('Adding a new pet without name should fail', ({ when, then }) => {
         const petId = Date.now();
 
         const payload = {
@@ -92,15 +88,11 @@ defineFeature(feature, (test) => {
         });
 
         then("I can't find my new pet in the store", async () => {
-            findPetById();
+            findPetById(petId);
         });
     });
 
-    test('Adding a new pet without photo should fail', ({
-        given,
-        when,
-        then,
-    }) => {
+    test('Adding a new pet without photo should fail', ({ when, then }) => {
         const petId = Date.now();
 
         const payload = {
@@ -120,7 +112,7 @@ defineFeature(feature, (test) => {
         });
 
         then("I can't find my new pet in the store", async () => {
-            findPetById();
+            findPetById(petId);
         });
     });
 });
