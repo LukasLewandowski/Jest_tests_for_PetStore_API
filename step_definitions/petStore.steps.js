@@ -18,7 +18,6 @@ const sampleCatImage = 'https://pixabay.com/images/id-2934720/';
 
 defineFeature(feature, (test) => {
     const defaultPayload = {
-        // id: petId,
         category: {
             id: 0,
             name: 'dogs',
@@ -34,7 +33,6 @@ defineFeature(feature, (test) => {
 
     test('Add a new pet to the store', ({ given, when, then }) => {
         const petId = Date.now();
-        console.log(petId);
 
         const payload = {
             id: petId,
@@ -42,8 +40,6 @@ defineFeature(feature, (test) => {
             photoUrls: [sampleDogImage],
             ...defaultPayload,
         };
-
-        console.log('pacz: ' + JSON.stringify(payload));
 
         when('I add a new pet', async () => {
             const response = await request
@@ -82,11 +78,9 @@ defineFeature(feature, (test) => {
         const payload = {
             id: petId,
             /* missing name */
-            photoUrls: [sampleDogImage],
+            photoUrls: [sampleDogImage, sampleCatImage],
             ...defaultPayload,
         };
-
-        console.log('pacz2: ' + JSON.stringify(payload));
 
         when('I add new pet without name', async () => {
             const response = await request
@@ -115,8 +109,6 @@ defineFeature(feature, (test) => {
             /* missing photo */
             ...defaultPayload,
         };
-
-        console.log('pacz3: ' + JSON.stringify(payload));
 
         when('I add new pet without photo', async () => {
             const response = await request
