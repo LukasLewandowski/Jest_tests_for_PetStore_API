@@ -45,7 +45,8 @@ defineFeature(feature, (test) => {
             const response = await request
                 .post(petStoreEndpoint)
                 .send(headers)
-                .send(payload);
+                .send(payload)
+                .catch((error) => console.error(error));
             expect(response.body).not.toBe(null);
             expect(response.status).toEqual(200);
         });
@@ -106,7 +107,8 @@ defineFeature(feature, (test) => {
             const response = await request
                 .post(petStoreEndpoint)
                 .set(headers)
-                .send(payload);
+                .send(payload)
+                .catch((error) => console.error(error));
             expect(response.status).toEqual(405);
             expect(response.body.type).toEqual('error');
         });
